@@ -1,7 +1,7 @@
 {
   "gathering":
   {
-    "base_api": "https://api.bitfinex.com/"
+    "base_api": "https://api.binance.com/"
   },
   "account":
   {
