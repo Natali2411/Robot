@@ -3,7 +3,7 @@ from general import General
 
 
 class Gather(General):
-    # Variable for saving base api
+    # Variable for saving base api url
     api = General().getConfig()["gathering"]["base_api"]
     # Test connectivity to the Rest API and get the current server time. Return: serverTime
     def getServerTime(self):
