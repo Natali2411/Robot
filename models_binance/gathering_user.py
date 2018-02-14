@@ -1,4 +1,5 @@
 import requests
+import hashlib #!!! API-key format invalid
 from general import General
 
 
@@ -8,15 +9,19 @@ class GatherUser(General):
 
     # Check an order's status of user orders. Params: mandatory (symbol, timestamp(LONG)), optional (orderId(LONG),
     # origClientOrderId(STRING), recvWindow(LONG))
-    def getOrderInfo(self, v_symbol, v_timestamp, v_orderId=None, v_origClientOrderId=None, v_recvWindow=None):
+    def getOrderInfo(self, v_symbol, v_datetime, v_orderId=None, v_origClientOrderId=None, v_recvWindow=None):
+        v_timestamp = General().convertDateToTimestamp(v_datetime)
         r = requests.get(self.api + '/api/v3/order', params={"symbol": v_symbol, "timestamp": v_timestamp, "orderId": v_orderId,
-                                                             "origClientOrderId": v_origClientOrderId, "recvWindow": v_recvWindow}, verify=False)
-        return r.json()
+                                                             "origClientOrderId": v_origClientOrderId, "recvWindow": v_recvWindow,}, verify=False)
+        return r.json() #!!! API-key format invalid
 
-
-
+    # Get all open orders on a symbol. Careful when accessing this with no symbol. Params: mandatory(timestamp), optional(symbol, recvWindow(LONG))
+    def getOpenOrders(self, v_datetime, v_symbol=None, v_recvWindow=None):
+        v_timestamp = General().convertDateToTimestamp(v_datetime)
+        r = requests.get(self.api + '/api/v3/openOrders', params={"symbol": v_symbol, "recvWindow": v_recvWindow}, verify=False)
+        return r.json() #!!! API-key format invalid
 
 
 if __name__ == '__main__':
     obj = GatherUser()
-    print(obj.getOrderInfo(v_symbol='BTCUSDT', v_timestamp))
+    print(obj.getOrderInfo(v_symbol='BTCUSDT', v_datetime='2018/02/14 16:45:47'))

@@ -9,9 +9,12 @@ class General():
         with open(filename)as f:
             return json.load(f)
 
-    def convertDateToTimestamp(self, dateTime):
-        time.mktime(datetime.datetime.strptime(dateTime, "%d/%m/%Y").timetuple())
+    def convertDateToTimestamp(self, dateTime, template="%Y/%m/%d %H:%M:%S"):
+        if template == "%Y/%m/%d %H:%M:%S":
+            dt = time.mktime(datetime.datetime.strptime(dateTime, template).timetuple())
+        return dt
+
 
 if __name__ == '__main__':
     obj = General()
-    print(obj.getConfig()["gathering"]["base_api"])
+    print(obj.convertDateToTimestamp('2018/02/14 16:45:47'))
