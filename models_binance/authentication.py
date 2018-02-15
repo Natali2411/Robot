@@ -9,10 +9,9 @@ from urllib.request import Request, urlopen
 
 
 class Authentication():
-    def __init__(self, API_KEY, API_SECRET, params=None):
+    def __init__(self, API_KEY, API_SECRET):
         self.API_KEY = API_KEY
         self.API_SECRET = bytearray(API_SECRET, encoding='utf-8')
-        self.params = params
 
     methods = {
         # private methods
@@ -56,8 +55,9 @@ class Authentication():
         if self.methods[command]['method'] == 'GET':
             api_url += '?' + urllib.parse.urlencode(payload)
 
-        response = requests.request(method=self.methods[command]['method'], url=api_url, data=payload, headers=headers, params=self.params, verify=False)
-        return response.json()
+        res = {"method": self.methods[command]['method'], "api_url": api_url, "payload": payload, "headers": headers}
+        response = requests.request(method=self.methods[command]['method'], url=api_url, data=payload, headers=headers, verify=False)
+        return response
 
 
 if __name__ == '__main__':
