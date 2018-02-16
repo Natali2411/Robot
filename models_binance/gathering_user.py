@@ -29,8 +29,8 @@ class GatherUser(General, Authentication):
 
 
 if __name__ == '__main__':
-    obj = GatherUser(API_KEY="SEZO65vWZQuCMZ4D6DuziK4qqBrU58lk5uiRMJas8Vx4VFmsCXmYXptv9U8hxVXp",
-                     API_SECRET="ZN8xupENZybWbc08CWdsSTSbnVYz2f8yEFpJMafDg6IUcimNRMJtTzvQw536KQ5z")
+    obj = GatherUser(API_KEY="",
+                     API_SECRET="")
     print(obj.getAccountInfo())
 
           #(v_symbol='ETHLTC', v_recvWindow=600000))
