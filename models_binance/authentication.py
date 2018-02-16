@@ -56,8 +56,8 @@ class Authentication():
             api_url += '?' + urllib.parse.urlencode(payload)
 
         res = {"method": self.methods[command]['method'], "api_url": api_url, "payload": payload, "headers": headers}
-        response = requests.request(method=self.methods[command]['method'], url=api_url, data=payload, headers=headers, verify=False)
-        return response
+        #response = requests.request(method=self.methods[command]['method'], url=api_url, data=payload, headers=headers, verify=False)
+        return res
 
 
 if __name__ == '__main__':

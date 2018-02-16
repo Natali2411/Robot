@@ -14,21 +14,23 @@ class GatherUser(General, Authentication):
     def getAccountInfo(self):
         auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).account()
         r = requests.get(url=auth["api_url"], headers=auth["headers"], data=auth["payload"], verify=False)
-        return auth
+        return r.json()
 
 
     # Check an order's status of user orders. Params: mandatory (symbol, timestamp(LONG)), optional (orderId(LONG),
     # origClientOrderId(STRING), recvWindow(LONG))
-    def getOrderInfo(self, v_symbol, v_datetime, v_recvWindow, v_orderId=None, v_origClientOrderId=None):
-        v_timestamp = General().convertDateToTimestamp(v_datetime)
+    def getOrderInfo(self, v_symbol, v_recvWindow, v_orderId=None, v_origClientOrderId=None):
+        #v_timestamp = General().convertDateToTimestamp(v_datetime)
         params = {"symbol": v_symbol, "orderId": v_orderId, "origClientOrderId": v_origClientOrderId, "recvWindow": v_recvWindow}
         auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).orderInfo()
-        r = requests.request(method=auth['method'], url=auth["api_url"], data=auth["payload"], headers=auth["headers"], params=params, verify=False)
-        #r = requests.get(url=auth["api_url"], headers=auth["headers"], data=auth["payload"], params=params, verify=False)
+        #r = requests.request(method=auth['method'], url=auth["api_url"], data=auth["payload"], headers=auth["headers"], params=params, verify=False)
+        r = requests.get(url=auth["api_url"], headers=auth["headers"], data=auth["payload"], params=params, verify=False)
         return r.json()#!!! API-key format invalid
 
 
 if __name__ == '__main__':
-    obj = GatherUser(API_KEY="",
-                     API_SECRET="")
+    obj = GatherUser(API_KEY="SEZO65vWZQuCMZ4D6DuziK4qqBrU58lk5uiRMJas8Vx4VFmsCXmYXptv9U8hxVXp",
+                     API_SECRET="ZN8xupENZybWbc08CWdsSTSbnVYz2f8yEFpJMafDg6IUcimNRMJtTzvQw536KQ5z")
     print(obj.getAccountInfo())
+
+          #(v_symbol='ETHLTC', v_recvWindow=600000))
