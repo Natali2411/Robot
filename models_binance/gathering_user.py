@@ -23,15 +23,19 @@ class GatherUser(General, Authentication):
         #v_timestamp = General().convertDateToTimestamp(v_datetime)
         params = {"symbol": v_symbol, "orderId": v_orderId, "origClientOrderId": v_origClientOrderId, "recvWindow": v_recvWindow}
         auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).orderInfo()
-        auth["payload"].update(params)
-        #r = requests.request(method=auth['method'], url=auth["api_url"], data=auth["payload"], headers=auth["headers"], params=params, verify=False)
-        r = requests.get(url=auth["api_url"], headers=auth["headers"], params=auth["payload"], verify=False)
-        return auth["api_url"]#!!! API-key format invalid
+        #auth["payload"].update(params)
+        r = requests.request(method=auth['method'], url=auth["api_url"], data=auth["payload"], headers=auth["headers"],
+                             auth=("nat.tiutiunnyk@gmail.com", "Natalka2411"), params=params, verify=False)
+        #r = requests.get(url=auth["api_url"], headers=auth["headers"], params=params, data=auth["payload"],
+                         #auth=("nat.tiutiunnyk@gmail.com", "Natalka2411"), verify=False)
+        return r.status_code #!!! API-key format invalid
 
 
 if __name__ == '__main__':
     obj = GatherUser(API_KEY="",
                      API_SECRET="")
+    #print (obj.getAccountInfo())
+
     print(obj.getOrderInfo(v_symbol='ETHLTC', v_recvWindow=600000))
 
           #(v_symbol='ETHLTC', v_recvWindow=600000))
