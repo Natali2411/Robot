@@ -25,9 +25,9 @@ class GatherUser(General, Authentication):
         auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).orderInfo()
         #auth["payload"].update(params)
         r = requests.request(method=auth['method'], url=auth["api_url"], data=auth["payload"], headers=auth["headers"],
-                             auth=("nat.tiutiunnyk@gmail.com", "Natalka2411"), params=params, verify=False)
+                             auth=("", ""), params=params, verify=False)
         #r = requests.get(url=auth["api_url"], headers=auth["headers"], params=params, data=auth["payload"],
-                         #auth=("nat.tiutiunnyk@gmail.com", "Natalka2411"), verify=False)
+                         #auth=("", ""), verify=False)
         return r.status_code #!!! API-key format invalid
 
 
