@@ -3,6 +3,7 @@ import json
 import urllib
 import hmac, hashlib
 import requests
+from general import General
 
 from urllib.parse import urlparse, urlencode
 from urllib.request import Request, urlopen
@@ -42,13 +43,11 @@ class Authentication():
 
         if self.methods[command]['private']:
             payload.update({'timestamp': int(time.time() * 1000)})
-
             sign = hmac.new(
                 key=self.API_SECRET,
                 msg=urllib.parse.urlencode(payload).encode('utf-8'),
                 digestmod=hashlib.sha256
             ).hexdigest()
-
             payload.update({'signature': sign})
             headers = {"X-MBX-APIKEY": self.API_KEY}
 

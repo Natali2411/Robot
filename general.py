@@ -11,8 +11,12 @@ class General():
 
     def convertDateToTimestamp(self, dateTime, template="%Y/%m/%d %H:%M:%S"):
         if template == "%Y/%m/%d %H:%M:%S":
-            dt = time.mktime(datetime.datetime.strptime(dateTime, template).timetuple())
+            dt = datetime.datetime.strptime(dateTime, template).timestamp() * 1000
         return dt
+
+    def getCurrentTimestamp(self):
+        return int(time.time() * 1000)
 
 if __name__ == '__main__':
     obj = General()
+    print(obj.convertDateToTimestamp('2019/02/18 18:35:50'))

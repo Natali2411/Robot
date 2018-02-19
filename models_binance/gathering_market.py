@@ -67,3 +67,4 @@ class Gather(General):
 if __name__ == '__main__':
     obj = Gather()
     print(obj.getBestPrice(v_symbol='BTCUSDT'))
+    print(obj.getTradeList(v_symbol='BTCUSDT'))
