@@ -1,7 +1,7 @@
 import time
 import json
 import urllib
-import hmac, hashlib
+import hmac, hashlib, base64
 import requests
 from general import General
 
@@ -49,9 +49,9 @@ class Authentication():
                 digestmod=hashlib.sha256
             ).hexdigest()
             payload.update({'signature': sign})
-            headers = {"X-MBX-APIKEY": self.API_KEY, "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-                       "accept-encoding": "gzip, deflate, br", "scheme": "https", "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"}
-
+            #headers = {"X-MBX-APIKEY": self.API_KEY}
+            h = hmac.new(key=bytearray(self.API_KEY, encoding='utf-8'), digestmod=hashlib.sha256).hexdigest()
+            headers.update({"X-MBX-APIKEY": h})
         if self.methods[command]['method'] == 'GET':
             api_url += '?' + urllib.parse.urlencode(payload)
 

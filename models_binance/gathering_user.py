@@ -19,22 +19,22 @@ class GatherUser(General, Authentication):
 
     # Check an order's status of user orders. Params: mandatory (symbol, timestamp(LONG)), optional (orderId(LONG),
     # origClientOrderId(STRING), recvWindow(LONG))
-    def getOrderInfo(self, v_symbol, v_recvWindow, v_orderId=None, v_origClientOrderId=None):
+    def getOrderInfo(self, v_symbol, v_recvWindow): #, v_orderId='', v_origClientOrderId=''
         #v_timestamp = General().convertDateToTimestamp(v_datetime)
-        params = {"symbol": v_symbol, "orderId": v_orderId, "origClientOrderId": v_origClientOrderId, "recvWindow": v_recvWindow}
+        params = {"symbol": v_symbol, "recvWindow": v_recvWindow}#, "orderId": v_orderId, "origClientOrderId": v_origClientOrderId}
         auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).orderInfo()
         #auth["payload"].update(params)
-        r = requests.request(method=auth['method'], url=auth["api_url"], data=auth["payload"], headers=auth["headers"],
-                             auth=("", ""), params=params, verify=False)
+        r = requests.request(method=auth['method'], url=auth["api_url"], data=auth["payload"], params=params, headers=auth["headers"],
+                             auth=("nat.tiutiunnyk@gmail.com", "Natalka2411"), verify=False)
         #r = requests.get(url=auth["api_url"], headers=auth["headers"], params=params, data=auth["payload"],
                          #auth=("", ""), verify=False)
-        return r.status_code #!!! API-key format invalid
+        return auth["api_url"] #!!! API-key format invalid
 
 
 if __name__ == '__main__':
     obj = GatherUser(API_KEY="",
                      API_SECRET="")
-    #print (obj.getAccountInfo())
+    print (obj.getAccountInfo())
 
     print(obj.getOrderInfo(v_symbol='ETHLTC', v_recvWindow=600000))
 
