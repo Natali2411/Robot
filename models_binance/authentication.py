@@ -48,10 +48,10 @@ class Authentication():
                 msg=urllib.parse.urlencode(payload).encode('utf-8'),
                 digestmod=hashlib.sha256
             ).hexdigest()
-            payload.update({'signature': sign})
-            #headers = {"X-MBX-APIKEY": self.API_KEY}
-            h = hmac.new(key=bytearray(self.API_KEY, encoding='utf-8'), digestmod=hashlib.sha256).hexdigest()
-            headers.update({"X-MBX-APIKEY": h})
+            payload.update({'sign': sign})
+            headers = {"X-MBX-APIKEY": self.API_KEY}
+            #h = hmac.new(key=bytearray(self.API_KEY, encoding='utf-8'), digestmod=hashlib.sha256).hexdigest()
+            #headers.update({"X-MBX-APIKEY": h})
         if self.methods[command]['method'] == 'GET':
             api_url += '?' + urllib.parse.urlencode(payload)
 

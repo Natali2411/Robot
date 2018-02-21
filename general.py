@@ -17,6 +17,19 @@ class General():
     def getCurrentTimestamp(self):
         return int(time.time() * 1000)
 
+    def encodeParams(self, paramVal):
+        params = {}
+        param = hmac.new(
+            key=bytearray(str(paramVal), encoding='utf-8'),
+            msg=urllib.parse.urlencode(params).encode('utf-8'),
+            digestmod=hashlib.sha256
+        ).hexdigest()
+        params.update({"param": param})
+        return params["param"]
+
+
+
 if __name__ == '__main__':
     obj = General()
-    print(obj.convertDateToTimestamp('2019/02/18 18:35:50'))
+    #print(obj.convertDateToTimestamp('2019/02/18 18:35:50'))
+    print(obj.encodeParams('LTCETH'))

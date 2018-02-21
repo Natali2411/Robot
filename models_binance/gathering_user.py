@@ -29,14 +29,14 @@ class GatherUser(General, Authentication):
                              params=params, verify=False)
         #r = requests.get(url=auth["api_url"], headers=auth["headers"], params=params, data=auth["payload"],
                          #auth=("", ""), verify=False)
-        return auth["payload"] #!!! API-key format invalid
+        return r.status_code #!!! API-key format invalid
 
 
 if __name__ == '__main__':
     obj = GatherUser(API_KEY="",
                      API_SECRET="")
-    #print (obj.getAccountInfo())
+    print (obj.getAccountInfo())
 
-    print(obj.getOrderInfo(v_symbol='ETHLTC', v_recvWindow=6000))
+    #print(obj.getOrderInfo(v_symbol='ETHLTC', v_recvWindow=6000))
 
           #(v_symbol='ETHLTC', v_recvWindow=600000))
