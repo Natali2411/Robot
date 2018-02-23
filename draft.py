@@ -1,24 +1,17 @@
-import requests
-import urllib
-import json
-import hashlib
-import hmac
-from collections import OrderedDict
-from urllib.parse import urlparse, urlencode
+# pip install --trusted-host pypi.python.org pack_name
+from zeep import Client
+from zeep import xsd
+from zeep.wsse.username import UsernameToken
+from requests import Session
+from requests.auth import HTTPBasicAuth
+from zeep.transports import Transport
+import ssl
 
-server = "api.livecoin.net"
-method = "/exchange/client_orders"
-api_key = "gJx7Wa7qXkPtmTAaK3ADCtr6m5rCYYMy"
-secret_key = bytearray("8eLps29wsXszNyEhOl9w8dxsOsM2lTzg", encoding="utf-8")
-
-data = OrderedDict([('currencyPair', 'BTC/EUR')])
-
-encoded_data = urllib.parse.urlencode(data).encode('utf-8')
-
-sign = hmac.new(secret_key, msg=encoded_data, digestmod=hashlib.sha256).hexdigest().upper()
-
-headers = {"Api-key": api_key, "Sign": sign}
-
-requests.request("GET", method + '?' + encoded_data, '', headers)
-
-print (data)
+session = Session()
+session.verify = False
+#transport = Transport(session=session)
+#transport = Transport(http_auth=HTTPBasicAuth("testuser", "testuser"))
+ssl._create_default_https_context = ssl._create_unverified_context
+client = Client('http://kwsesbapu06.alfa.bank.int:8280/services/CardLogisticsWF?wsdl')
+#http_headers = client.wsse.apply(envelope, http_headers)
+result = client.service.getCards(shopId='8344')
