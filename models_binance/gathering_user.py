@@ -14,7 +14,8 @@ class GatherUser(General, Authentication):
 
     def getAccountInfo(self):
         auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).account()
-        r = requests.get(url=auth["api_url"], headers=auth["headers"], data=auth["payload"], verify=False)
+        r = requests.get(url=auth["api_url"], headers=auth["headers"], data=auth["payload"],
+                         verify=False)
         return r.json()
 
 
@@ -25,18 +26,13 @@ class GatherUser(General, Authentication):
         #v_recvWindow = General().encodeParams(v_recvWindow)
         params = {"symbol": v_symbol, "recvWindow": v_recvWindow}#, "orderId": v_orderId, "origClientOrderId": v_origClientOrderId}
         auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).orderInfo()
-        r = requests.request(method=auth['method'], url=auth["api_url"], data=auth["payload"], headers=auth["headers"],
+        full_url = auth["api_url"] + '&' + urlencode(params)
+        r = requests.request(method=auth['method'], url=full_url, data=auth["payload"], headers=auth["headers"],
                              params=params, verify=False)
         #r = requests.get(url=auth["api_url"], headers=auth["headers"], params=params, data=auth["payload"],
                          #auth=("", ""), verify=False)
         return r.status_code #!!! API-key format invalid
 
-
 if __name__ == '__main__':
-    obj = GatherUser(API_KEY="",
-                     API_SECRET="")
+    obj = GatherUser(API_KEY="", API_SECRET="")
     print (obj.getAccountInfo())
-
-    #print(obj.getOrderInfo(v_symbol='ETHLTC', v_recvWindow=6000))
-
-          #(v_symbol='ETHLTC', v_recvWindow=600000))
