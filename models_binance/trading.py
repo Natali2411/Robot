@@ -32,4 +32,5 @@ class Trading(General, Authentication):
 
 if __name__ == '__main__':
     obj = Trading(API_KEY="", API_SECRET="")
-    obj.postNewOrder(v_symbol="LTCETH")
+    #print(obj.postNewOrder(v_symbol="LTCETH"))
+    print(obj.delCancelOrder(v_symbol="LTCETH"))
