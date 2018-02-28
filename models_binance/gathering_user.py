@@ -16,23 +16,37 @@ class GatherUser(General, Authentication):
         auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).account()
         r = requests.get(url=auth["api_url"], headers=auth["headers"], data=auth["payload"],
                          verify=False)
-        return r.json()
+        return auth["api_url"]
 
 
     # Check an order's status of user orders. Params: mandatory (symbol, timestamp(LONG)), optional (orderId(LONG),
     # origClientOrderId(STRING), recvWindow(LONG))
     def getOrderInfo(self, v_symbol, v_recvWindow): #, v_orderId='', v_origClientOrderId=''
-        #v_symbol = General().encodeParams(v_symbol)
-        #v_recvWindow = General().encodeParams(v_recvWindow)
         params = {"symbol": v_symbol, "recvWindow": v_recvWindow}#, "orderId": v_orderId, "origClientOrderId": v_origClientOrderId}
         auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).orderInfo()
         full_url = auth["api_url"] + '&' + urlencode(params)
-        r = requests.request(method=auth['method'], url=full_url, data=auth["payload"], headers=auth["headers"],
-                             params=params, verify=False)
-        #r = requests.get(url=auth["api_url"], headers=auth["headers"], params=params, data=auth["payload"],
-                         #auth=("", ""), verify=False)
-        return r.status_code #!!! API-key format invalid
+        r = requests.request(method=auth['method'], url=full_url, headers=auth["headers"], verify=False)
+        return full_url #!!! API-key format invalid
+
+    def getOpenOrders(self): #, v_orderId='', v_origClientOrderId=''
+        #params = {"symbol": v_symbol, "recvWindow": v_recvWindow}#, "orderId": v_orderId, "origClientOrderId": v_origClientOrderId}
+        auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).openOrders()
+        #full_url = auth["api_url"] + '&' + urlencode(params)
+        r = requests.request(method=auth['method'], url=auth["api_url"], headers=auth["headers"], data=auth["payload"], verify=False)
+        return r.json() #!!! API-key format invalid
+
+    def getAllOrders(self, v_symbol, v_recvWindow):
+        auth = Authentication(API_KEY=self.api_key, API_SECRET=self.api_secret).allOrders()
+        params = {"symbol": v_symbol, "recvWindow": v_recvWindow}#, "orderId": v_orderId, "origClientOrderId": v_origClientOrderId}
+        r = requests.request(method=auth['method'], url=auth["api_url"], headers=auth["headers"],
+                             params=urlencode(params), verify=False)
+        return r.text #!!! API-key format invalid
+
 
 if __name__ == '__main__':
-    obj = GatherUser(API_KEY="", API_SECRET="")
-    print (obj.getAccountInfo())
+    obj = GatherUser(API_KEY="",
+                     API_SECRET="")
+    #print (obj.getAccountInfo())
+    #print (obj.getOrderInfo(v_symbol="LTCETH", v_recvWindow=60000000))
+    #print (obj.getOpenOrders())
+    print (obj.getAllOrders(v_symbol="LTCETH", v_recvWindow=60000000))
