@@ -27,6 +27,12 @@ class General():
         params.update({"param": param})
         return params["param"]
 
+    def saveDataInFile(self, data):
+        file = open("currency.txt", "a")
+        file.write(str(data))
+        file.close()
+        return 'yes'
+
 
 
 if __name__ == '__main__':

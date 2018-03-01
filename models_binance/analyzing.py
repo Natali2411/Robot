@@ -11,20 +11,24 @@ class Analyzing(General):
 
     # return % of profit or loss
     def convertCurrencyPair(self):
-        r = {}
+        r1 = {}
+        r2 = {}
+        r3 = {}
         pair = General().getConfig()["conv3Pairs"]
         #v_symbol1, v_symbol2, v_symbol3
         res = self.gather.getLastPriceTicker()
         for i in range(len(res)):
             if pair["v_symbol1"] == res[i]["symbol"]:
-                r["v_symbol1"] = res[i]["price"]
+                r1["v_symbol1"] = res[i]["price"]
             if pair["v_symbol2"] == res[i]["symbol"]:
-                r["v_symbol2"] = res[i]["price"]
+                r2["v_symbol2"] = res[i]["price"]
             if pair["v_symbol3"] == res[i]["symbol"]:
-                r["v_symbol3"] = res[i]["price"]
-        oper = round(1 / float(r["v_symbol1"]) * float(r["v_symbol2"]) * float(r["v_symbol3"]) * self.commission,8)
+                r3["v_symbol3"] = res[i]["price"]
+        oper = round(1 / float(r1["v_symbol1"]) * float(r2["v_symbol2"]) * float(r3["v_symbol3"]) * self.commission,8)
         profit = round(oper * 100 - 100,8)
-        return profit
+        r3.update({"profit": profit})
+        res = {"1":r1, "2": r2, "3": r3}
+        return res
 
 if __name__ == '__main__':
     obj = Analyzing()
