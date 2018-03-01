@@ -7,5 +7,12 @@
   {
     "api_key": "",
     "api_secret": ""
+  },
+  "conv3Pairs":
+  {
+    "v_symbol1": "LTCUSDT",
+    "v_symbol2": "LTCBTC",
+    "v_symbol3": "BTCUSDT"
   }
+
 }

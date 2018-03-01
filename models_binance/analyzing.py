@@ -6,24 +6,26 @@ class Analyzing(General):
     api = General().getConfig()["gathering"]["base_api"]
     api_key = General().getConfig()["account"]["api_key"]
     api_secret = General().getConfig()["account"]["api_secret"]
+    commission = 1 - 0.002 # commission for operation
     gather = Gather()
 
-    def convertCurrencyPair(self, v_symbol1, v_symbol2, v_symbol3, v_symbol4):
+    # return % of profit or loss
+    def convertCurrencyPair(self):
         r = {}
-        res = self.gather.getPriceTicker()
+        pair = General().getConfig()["conv3Pairs"]
+        #v_symbol1, v_symbol2, v_symbol3
+        res = self.gather.getLastPriceTicker()
         for i in range(len(res)):
-            if v_symbol1 == res[i]["symbol"]:
-                r[v_symbol1] = res[i]["askPrice"]
-            if v_symbol2 == res[i]["symbol"]:
-                r[v_symbol2] = res[i]["askPrice"]
-            if v_symbol3 == res[i]["symbol"]:
-                r[v_symbol3] = res[i]["askPrice"]
-            if v_symbol4 == res[i]["symbol"]:
-                r[v_symbol4] = res[i]["askPrice"]
-        if len(r) == 2:
-            rate = float(r[v_symbol2])/float(r[v_symbol1])*float(r[v_symbol3])*float(r[v_symbol4])
-        return rate
+            if pair["v_symbol1"] == res[i]["symbol"]:
+                r["v_symbol1"] = res[i]["price"]
+            if pair["v_symbol2"] == res[i]["symbol"]:
+                r["v_symbol2"] = res[i]["price"]
+            if pair["v_symbol3"] == res[i]["symbol"]:
+                r["v_symbol3"] = res[i]["price"]
+        oper = round(1 / float(r["v_symbol1"]) * float(r["v_symbol2"]) * float(r["v_symbol3"]) * self.commission,8)
+        profit = round(oper * 100 - 100,8)
+        return profit
 
 if __name__ == '__main__':
     obj = Analyzing()
-    print(obj.convertCurrencyPair('ETHBTC', 'ETHUSDT', 'ETHLTC', 'ETHAMB'))
+    print(obj.convertCurrencyPair())
