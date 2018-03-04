@@ -2,6 +2,8 @@ import requests, json, os, datetime
 import time, os, hmac, requests, hashlib, urllib
 from urllib.parse import urlparse, urlencode
 from urllib.request import Request, urlopen
+import datetime
+
 
 class General():
     def getConfig(self):
@@ -13,6 +15,9 @@ class General():
         if template == "%Y/%m/%d %H:%M:%S":
             dt = datetime.datetime.strptime(dateTime, template).timestamp() * 1000
         return dt
+
+    def getDateTimeCurrent(self):
+        return str(datetime.datetime.now())
 
     def getCurrentTimestamp(self):
         return int(time.time() * 1000)

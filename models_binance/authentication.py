@@ -9,10 +9,10 @@ from urllib.parse import urlparse, urlencode
 from urllib.request import Request, urlopen
 
 
-class Authentication():
-    def __init__(self, API_KEY, API_SECRET):
-        self.API_KEY = API_KEY
-        self.API_SECRET = bytearray(API_SECRET, encoding='utf-8')
+class Authentication(General):
+    def __init__(self):
+        self.API_KEY = General().getConfig()["account"]["api_key"] #API_KEY
+        self.API_SECRET = bytearray(General().getConfig()["account"]["api_secret"], encoding='utf-8')
 
     methods = {
         # private methods

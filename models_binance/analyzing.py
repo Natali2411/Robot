@@ -27,8 +27,8 @@ class Analyzing(General):
         oper = round(1 / float(r1["v_symbol1"]) * float(r2["v_symbol2"]) * float(r3["v_symbol3"]) * self.commission,8)
         profit = round(oper * 100 - 100,8)
         r3.update({"profit": profit})
-        res = {"1":r1, "2": r2, "3": r3}
-        return res
+        r = {"1":r1, "2": r2, "3": r3}
+        return r
 
 if __name__ == '__main__':
     obj = Analyzing()
