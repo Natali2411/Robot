@@ -15,7 +15,7 @@ class SaveData(Analyzing):
                 'Amount of ' + str(currency) + ' = ' + i["free"] + ', ' + \
                 pair["v_symbol1"] + ' (course: ' + data["1"]["v_symbol1"] + '), ' + \
                 pair["v_symbol2"] + ' (course: ' + data["2"]["v_symbol2"] + '), ' + \
-                pair["v_symbol3"] + ' (course: ' + data["3"]["v_symbol3"] + ');\n'
+                pair["v_symbol3"] + ' (course: ' + data["3"]["v_symbol3"] + '), profit: ' + str(data["3"]["profit"]) + ';\n'
                 res = self.obj.saveDataInFile(data=s)
         return res
 
