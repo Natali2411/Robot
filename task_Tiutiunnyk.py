@@ -8,7 +8,7 @@ def reverseList(list):
 print(reverseList([1,2,3,4,5,6,7,8]))
 
 #2. Реализовать функцию которая отфильтрует все буквы в строке, которые встречаются более одного раза (> 1). Пример: => "agcdcgia": "agc"
-def filtrStr(s):
+def filtreStr(s):
     d = {}
     s2 = ''
     for i in s:
@@ -22,7 +22,7 @@ def filtrStr(s):
             s2 += i
     return s2
 
-print(filtrStr('AADDTFGOOFF'))
+print(filtreStr('AADDTFGOOFF'))
 '''
 3. Необходимо написать функцию, которая заменит значение объекта в массиве, по переданному id. Условие - все данные должны быть immutable.
 Входящие данные:
