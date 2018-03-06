@@ -23,3 +23,64 @@ def filtrStr(s):
     return s2
 
 print(filtrStr('AADDTFGOOFF'))
+'''
+3. Необходимо написать функцию, которая заменит значение объекта в массиве, по переданному id. Условие - все данные должны быть immutable.
+Входящие данные:
+    array = [
+        {'id': 1, 'state': True},
+        {'id': 2, 'state': True},
+        {'id': 8, 'state': False}
+    ]
+
+Пример:
+=> update(2, False)
+[{'id': 1, 'state': True}, {'id': 2, 'state': False}, {'id': 8, 'state': False}]
+
+=> update(8, True)
+[{'id': 1, 'state': True}, {'id': 2, 'state': True}, {'id': 8, 'state': True}]
+
+=> update(7, True) # Ничего не произойдет.
+[{'id': 1, 'state': True}, {'id': 2, 'state': True}, {'id': 8, 'state': False}] '''
+
+def update(key, val):
+    array = [
+        {'id': 1, 'state': True},
+        {'id': 2, 'state': True},
+        {'id': 8, 'state': False}
+    ]
+    for i in range(len(array)):
+        if key == array[i]["id"]:
+            array[i]["state"] = val
+    return array
+
+print(update(2, False))
+
+'''
+4. Необходимо нормализовать строку убрав все дополнительные символы возле слов.
+Пример:
+=> normalize("X > %Y")
+    "X > Y"
+
+=> normalize("  X >      Y    >")
+    "X > Y"
+
+=> normalize("\"X\" >'Y'> I  \t> 1Z2")
+    "X > Y > I > 1Z2"
+
+Дополнительные символы:
+    !"$&\'*+,-./:;<=?[\\]^`{|}~\t\n\x0b\x0c\r
+'''
+import re
+def normalize(s):
+    r = ""
+    #pattern = re.compile(r'[\s+]')
+    pattern = re.compile(r'[\s\t\n\x0b\x0c\r%!"$&\'*,-./:;<=?\\^`{|}~]')
+    txt = re.sub(pattern, '', s).split('>')
+    for i in range(len(txt)):
+        r += str(txt[i]) + ' ' + '> '
+    return r[:-2]
+
+
+print(normalize("X > % Y"))
+print(normalize("  X >      Y    >"))
+#print(normalize("\"X\" >'Y'> I  \t> 1Z2"))
