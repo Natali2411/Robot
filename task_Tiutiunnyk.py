@@ -72,15 +72,15 @@ print(update(2, False))
 '''
 import re
 def normalize(s):
-    r = ""
-    #pattern = re.compile(r'[\s+]')
     pattern = re.compile(r'[\s\t\n\x0b\x0c\r%!"$&\'*,-./:;<=?\\^`{|}~]')
-    txt = re.sub(pattern, '', s).split('>')
-    for i in range(len(txt)):
-        r += str(txt[i]) + ' ' + '> '
-    return r[:-2]
+    t = re.sub(pattern, '', s).strip()
+    s = t.split('>')
+    for i in range(len(s)):
+        if s[i] == '':
+            s.pop(i)
+    return ' > '.join(s)
 
 
 print(normalize("X > % Y"))
 print(normalize("  X >      Y    >"))
-#print(normalize("\"X\" >'Y'> I  \t> 1Z2"))
+print(normalize("\"X\" >'Y'> I  \t> 1Z2"))
