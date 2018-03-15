@@ -13,6 +13,8 @@
     "v_symbol1": "LTCUSDT",
     "v_symbol2": "LTCBTC",
     "v_symbol3": "BTCUSDT"
-  }
+  },
+  "convCurrSave": "USDT",
+  "convSchedTime": "23:54"
 
 }
