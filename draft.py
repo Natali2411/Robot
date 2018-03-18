@@ -53,8 +53,8 @@ class poloniex:
                 'Key': self.APIKey
             }
 
-            #ret = urllib.request.urlopen(urllib.request.Request('https://poloniex.com/tradingApi', post_data, headers))
-            ret = requests.post('https://poloniex.com/tradingApi', data=req, headers=headers)
+            ret = urllib.request.urlopen(urllib.request.Request('https://poloniex.com/tradingApi', post_data, headers))
+            #ret = requests.post('https://poloniex.com/tradingApi', data=req, headers=headers)
             jsonRet = json.loads(ret.read())
             return self.post_process(jsonRet)
 
@@ -142,5 +142,7 @@ class poloniex:
 if __name__ == '__main__':
     bot = poloniex(APIKey="",
                    Secret="")
-    #print(bot.buy(currencyPair="USDTLTC", rate=0.256, amount=10))
-    print(bot.returnTicker())
+    print(bot.sell(currencyPair="BTC_XRP", rate=0.00011119, amount=5.62138419)) # '133583500899'
+    #print(bot.returnMarketTradeHistory(currencyPair='BTC_XRP'))
+    #print(bot.returnTicker())
+    #print(bot.cancel(currencyPair="BTC_XRP", orderNumber='133583500899'))
