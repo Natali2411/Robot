@@ -4,16 +4,16 @@ import json
 import time
 import hmac, hashlib, requests
 from urllib.parse import urlparse, urlencode
-
+from general import General
 
 def createTimeStamp(datestr, format="%Y-%m-%d %H:%M:%S"):
     return time.mktime(time.strptime(datestr, format))
 
 
-class poloniex:
-    def __init__(self, APIKey, Secret):
-        self.APIKey = APIKey
-        self.Secret = bytearray(Secret, encoding="utf-8")
+class PoloniexAuth(General):
+    def __init__(self):
+        self.APIKey = General().getConfig()["poloniex"]["api_key"]
+        self.Secret = bytearray(General().getConfig()["poloniex"]["api_secret"], encoding="utf-8")
 
     def post_process(self, before):
         after = before
@@ -140,8 +140,7 @@ class poloniex:
         return self.api_query('withdraw', {"currency": currency, "amount": amount, "address": address})
 
 if __name__ == '__main__':
-    bot = poloniex(APIKey="",
-                   Secret="")
+    bot = PoloniexAuth()
     print(bot.sell(currencyPair="BTC_XRP", rate=0.00011119, amount=5.62138419)) # '133583500899'
     #print(bot.returnMarketTradeHistory(currencyPair='BTC_XRP'))
     #print(bot.returnTicker())

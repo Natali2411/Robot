@@ -1,14 +1,19 @@
-from cx_Freeze import setup, Executable
+from distutils.core import setup
+import py2exe
 
-executables = [
-    Executable("general.py"),
-    Executable("conftest.py"),
-    Executable("config.json")
-]
+from distutils.filelist import findall
+import matplotlib
 
 setup(
-    name = "Robot",
-    version = "1.0",
-    description = "Robot Project",
-    executables = executables
+    console=['PlotMemInfo.py'],
+
+    options={
+        'py2exe': {
+            'packages': ['matplotlib'],
+            'dll_excludes': ['libgdk-win32-2.0-0.dll',
+                             'libgobject-2.0-0.dll',
+                             'libgdk_pixbuf-2.0-0.dll']
+        }
+    },
+    data_files=matplotlib.get_py2exe_datafiles()
 )

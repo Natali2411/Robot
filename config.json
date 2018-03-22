@@ -1,20 +1,26 @@
 {
   "gathering":
-  {
+    {
     "base_api": "https://api.binance.com/"
-  },
+    },
   "account":
-  {
-    "api_key": "vzzOcPHe26Ux6tnHbpWIwoXuv3aKz1iryWter6wWD6ZpPiIu4mbUBFBcyoIfB5xM",
-    "api_secret": "LYXptSYS36F9uA7VjoEOvAyj1dlcEou01rzJnEpN3PDMjRj8AQrk9Se4CENlYji8"
-  },
+    {
+    "api_key": "",
+    "api_secret": ""
+    },
   "conv3Pairs":
-  {
+    {
     "v_symbol1": "LTCUSDT",
     "v_symbol2": "LTCBTC",
     "v_symbol3": "BTCUSDT"
-  },
+    },
   "convCurrSave": "USDT",
-  "convSchedTime": "23:54"
+  "convSchedTime": "23:54",
+  "poloniex":
+    {
+    "USDT": "DASH, LTC, NXT, STR, XMR, XRP, ETH, ETC, REP, ZEC, BCH",
+    "api_key": "",
+    "api_secret": ""
+    }
 
 }
