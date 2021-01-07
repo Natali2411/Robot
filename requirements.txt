@@ -13,7 +13,7 @@ future==0.16.0
 idna==2.6
 isodate==0.6.0
 kiwisolver==1.0.1
-lxml==4.1.1
+lxml==4.6.2
 macholib==1.9
 matplotlib==2.2.0
 numpy==1.14.2
@@ -79,7 +79,7 @@ future==0.16.0
 idna==2.6
 isodate==0.6.0
 kiwisolver==1.0.1
-lxml==4.1.1
+lxml==4.6.2
 macholib==1.9
 matplotlib==2.2.0
 numpy==1.14.2
@@ -145,7 +145,7 @@ future==0.16.0
 idna==2.6
 isodate==0.6.0
 kiwisolver==1.0.1
-lxml==4.1.1
+lxml==4.6.2
 macholib==1.9
 matplotlib==2.2.0
 numpy==1.14.2
